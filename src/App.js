@@ -12,7 +12,7 @@ class App extends Component {
   state = {
     events: [],
     locations: [],
-    numberOfEvents: 10,
+    numberOfEvents: 32,
   }
 
   updateEvents = (location) => {
@@ -45,7 +45,7 @@ class App extends Component {
       <div className="App">
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
         <EventList events={this.state.events} />
-        <NumberOfEvents />
+        <NumberOfEvents updateEvents={this.updateEvents} />
 
       </div>
     );

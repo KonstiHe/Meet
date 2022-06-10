@@ -37,7 +37,7 @@ describe('<Event /> component', () => {
         EventWrapper.setState({
             collapsed: false
         });
-        EventWrapper.find('.show-details').simulate('click');
+        EventWrapper.find('.hide-details').simulate('click');
         expect(EventWrapper.state('collapsed')).toBe(true);
     });
 

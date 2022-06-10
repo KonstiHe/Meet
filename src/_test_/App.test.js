@@ -69,4 +69,36 @@ describe('<App /> integration', () => {
         expect(AppWrapper.state('events')).toEqual(allEvents);
         AppWrapper.unmount();
     });
+
+    test("load a list of 32 events by default", async () => {
+        const AppWrapper = mount(<App />);
+        const allEvents = await getEvents();
+        //check if the state of "eventsLength" (which returns a number) is not undefined
+        expect(AppWrapper.state("numberOfEvents")).not.toEqual(undefined);
+        const sliceNumber = AppWrapper.state("numberOfEvents");
+        //check if the events state is updated with the appropriate length after fetching
+        expect(AppWrapper.state("events")).toEqual(allEvents.slice(0, sliceNumber));
+        AppWrapper.unmount();
+    });
+
+    test("input change in NumberOfEvents updates the events state in App component", async () => {
+        const AppWrapper = mount(<App />);
+        const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
+        //const allEvents = await getEvents();
+        const selectedCity = "London, UK";
+        //using mockdata I know there's 3 events for london and 2 for berlin, so for London I should receive 3 events
+        const selectedNumber = 3;
+        //numberofevents function in action
+        await NumberOfEventsWrapper.instance().inputChanged({
+            target: { value: selectedNumber },
+        });
+        const eventsToShow = mockData
+            .filter((e) => e.location === selectedCity)
+            .slice(0, selectedNumber);
+        AppWrapper.setState({ events: eventsToShow });
+        expect(AppWrapper.state("events")).toEqual(eventsToShow);
+        expect(AppWrapper.state("events")).not.toEqual(undefined);
+        expect(AppWrapper.state("events")).toHaveLength(selectedNumber);
+        AppWrapper.unmount();
+    });
 });
