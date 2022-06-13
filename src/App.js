@@ -13,6 +13,8 @@ class App extends Component {
     events: [],
     locations: [],
     numberOfEvents: 32,
+    infoText: ''
+
   }
 
   updateEvents = (location) => {
@@ -21,10 +23,30 @@ class App extends Component {
         events :
         events.filter((event) => event.location === location);
       this.setState({
-        events: locationEvents
+        events: locationEvents.slice(0, this.state.numberOfEvents),
+        locations: location,
       });
     });
   }
+
+  updateNumberOfEvents = (numberOfEvents) => {
+    const value = numberOfEvents;
+
+    if (value <= 0 || value > 32) {
+      this.setState({
+        numberOfEvents: "",
+        infoText: "choose number 1 to 32",
+      });
+
+    } else {
+      this.setState({
+        numberOfEvents: value,
+        infoText: ""
+      });
+    }
+    this.updateEvents(this.state.locations, numberOfEvents);
+  };
+
 
   componentDidMount() {
     this.mounted = true;
@@ -41,11 +63,12 @@ class App extends Component {
   }
 
   render() {
+    let { numberOfEvents, infoText } = this.state;
     return (
       <div className="App">
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
         <EventList events={this.state.events} />
-        <NumberOfEvents updateEvents={this.updateEvents} />
+        <NumberOfEvents updateNumberOfEvents={this.updateNumberOfEvents} numberOfEvents={numberOfEvents} />
 
       </div>
     );
