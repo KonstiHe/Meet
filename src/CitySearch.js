@@ -13,10 +13,13 @@ class CitySearch extends Component {
         const suggestions = this.props.locations.filter((location) => {
             return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
         });
+
         this.setState({
             query: value,
             suggestions: suggestions
         });
+        //console.log(suggestions)
+        //console.log(this.state.query)
     };
 
     handleItemClicked = (suggestion) => {
@@ -24,6 +27,7 @@ class CitySearch extends Component {
             query: suggestion,
             showSuggestions: false
         });
+        //console.log(this.state.query)
         this.props.updateEvents(suggestion);
     }
 

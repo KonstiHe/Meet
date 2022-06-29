@@ -46,6 +46,14 @@ describe('<App /> integration', () => {
         AppWrapper.unmount();
     });
 
+    test('App passes "numberOfEvents" state as a prop to NumberOfEvents', () => {
+        const AppWrapper = mount(<App />);
+        const AppNumberOfEventsState = AppWrapper.state('numberOfEvents');
+        expect(AppNumberOfEventsState).not.toEqual(undefined);
+        expect(AppWrapper.find(NumberOfEvents).props().numberOfEvents).toEqual(AppNumberOfEventsState);
+        AppWrapper.unmount();
+    });
+
     test('get list of events matching the city selected by the user', async () => {
         const AppWrapper = mount(<App />);
         const CitySearchWrapper = AppWrapper.find(CitySearch);
@@ -70,7 +78,7 @@ describe('<App /> integration', () => {
         AppWrapper.unmount();
     });
 
-    test("load a list of 32 events by default", async () => {
+    test("load a list of specified events by default", async () => {
         const AppWrapper = mount(<App />);
         const allEvents = await getEvents();
         //check if the state of "eventsLength" (which returns a number) is not undefined
@@ -87,9 +95,9 @@ describe('<App /> integration', () => {
         //const allEvents = await getEvents();
         const selectedCity = "London, UK";
         //using mockdata I know there's 3 events for london and 2 for berlin, so for London I should receive 3 events
-        const selectedNumber = 3;
+        const selectedNumber = 5;
         //numberofevents function in action
-        await NumberOfEventsWrapper.instance().inputChanged({
+        await NumberOfEventsWrapper.instance().updateEvents({
             target: { value: selectedNumber },
         });
         const eventsToShow = mockData
@@ -101,4 +109,8 @@ describe('<App /> integration', () => {
         expect(AppWrapper.state("events")).toHaveLength(selectedNumber);
         AppWrapper.unmount();
     });
+
+
+
+
 });
