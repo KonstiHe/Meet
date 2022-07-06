@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class NumberOfEvents extends Component {
     state = {
-        numberOfEvents: 1,
+        numberOfEvents: 32,
         infoText: ''
     }
 
@@ -10,16 +10,18 @@ class NumberOfEvents extends Component {
         let newValue = parseInt(e.target.value);
         if ((newValue > 33) || (newValue < 1)) {
             this.setState({
-                numberOfEvents: newValue,
+                numberOfEvents: 32,
                 infoText: 'Please choose a number between 1 and 32',
             })
+            this.props.updateNumberOfEvents(32);
         } else {
             this.setState({
                 numberOfEvents: newValue,
                 infoText: ' '
-            })
+            });
+            this.props.updateNumberOfEvents(newValue);
         }
-        this.props.updateEvents(undefined, newValue);
+
     }
 
     render() {
