@@ -95,9 +95,9 @@ describe('<App /> integration', () => {
         //const allEvents = await getEvents();
         const selectedCity = "London, UK";
         //using mockdata I know there's 3 events for london and 2 for berlin, so for London I should receive 3 events
-        const selectedNumber = 5;
+        const selectedNumber = 2;
         //numberofevents function in action
-        await NumberOfEventsWrapper.instance().updateEvents({
+        await NumberOfEventsWrapper.instance().changeNumOfEvents({
             target: { value: selectedNumber },
         });
         const eventsToShow = mockData
