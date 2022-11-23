@@ -7,8 +7,8 @@
  * The Set will remove all duplicates from the array.
  */
 import { mockData } from './mock-data';
-import axios from 'axios';
-import NProgress from 'nprogress';
+import axios from 'axios'; //package to send requests from React application to the authorization serverless endpoints.
+import NProgress from 'nprogress'; //
 
 export const extractLocations = (events) => {
     var extractLocations = events.map((event) => event.location);

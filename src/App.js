@@ -13,8 +13,7 @@ class App extends Component {
     events: [],
     locations: [],
     currentLocation: "all cities",
-    numberOfEvents: 32,
-    infoText: ''
+    numberOfEvents: 32
   }
 
 
